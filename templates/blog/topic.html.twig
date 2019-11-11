@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+{% if is_granted('IS_AUTHENTIFICATED_FULLY') %}{% endif %}
+<a id="createNewTopicButton" class="btn" href="{{path('blog_subtopic_new')}}">Commencer une nouvelle discussion</a>
+<div id="signInModal" class="modal" tabindex="-1" role="dialog">
+</div>
+
+<table class="table">
+    <tr>
+        <th class="table__header table__col--padding">Discussions</th>
+        <th class="table__header table__col--padding">Messages</th>
+    </tr>  
+    {% for subTopic in topic.subtopics %}
+    <tr class="table__row">
+        <td class="table__col--padding">
+        <a class="table__topic-title" href="{{path('blog_subtopic', {'id':subTopic.id})}}">{{subTopic.title}}</a>
+        <p class="table__topic-author">par {{subTopic.idUser.username}}, {{subTopic.createdAt | date('d/m/Y à H:i')}} </p>
+        </td>
+        <td class="table__col--padding">{{subTopic.messages | length}}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endblock %}
+

@@ -25,7 +25,7 @@ class SecurityController extends AbstractController
         ]);
     }
     /**
-     * @Route("/inscription", name="security_signup", condition="request.isXmlHttpRequest()")
+     * @Route("/inscription", name="security_signup")
      */
     public function registration(UserTypeRepository $repo, Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
     {
@@ -35,9 +35,7 @@ class SecurityController extends AbstractController
         $user = new User();
         $user->setIdUserType($userType);
 
-        $form = $this->createForm(RegistrationType::class, $user, array(
-            'action' => $this->generateUrl($request->get('_route'))
-        ));
+        $form = $this->createForm(RegistrationType::class, $user);
 
         $form->handleRequest($request);
 
@@ -48,8 +46,6 @@ class SecurityController extends AbstractController
 
             $manager->persist($user);
             $manager->flush();
-            
-            return new Response('success');
         }
 
         return $this->render('security/sign_up_form.html.twig', [
@@ -58,7 +54,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="app_login", condition="request.isXmlHttpRequest()")
+     * @Route("/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -71,7 +67,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/sign_in_form.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     /**

@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\Topic;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * SubTopic
@@ -60,6 +63,18 @@ class SubTopic
      * @ORM\JoinColumn(nullable=false)
      */
     private $topic;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="subTopic", orphanRemoval=true)
+     */
+    private $messages;
+
+
+
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -125,6 +140,38 @@ class SubTopic
 
         return $this;
     }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setSubTopic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getSubTopic() === $this) {
+                $message->setSubTopic(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 }

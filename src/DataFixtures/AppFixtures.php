@@ -52,7 +52,7 @@ class AppFixtures extends Fixture
                     $message->setTopic($topic);
                     $message->setIdUser($user);
                     $message->setCreatedAt($faker->dateTimeBetween('-3 months'));
-                    $message->setIdSubTopic($subTopic);
+                    $message->setSubTopic($subTopic);
                     
                     $manager->persist($message);
                 }

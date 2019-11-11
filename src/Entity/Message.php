@@ -35,15 +35,6 @@ class Message
      */
     private $createdAt;
 
-    /**
-     * @var \SubTopic
-     *
-     * @ORM\ManyToOne(targetEntity="SubTopic")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_sub_topic", referencedColumnName="id")
-     * })
-     */
-    private $idSubTopic;
 
     /**
      * @var \User
@@ -60,6 +51,18 @@ class Message
      * @ORM\JoinColumn(nullable=false)
      */
     private $topic;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\SubTopic", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $subTopic;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\SubTopic", inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+
 
     public function getId(): ?int
     {
@@ -90,17 +93,6 @@ class Message
         return $this;
     }
 
-    public function getIdSubTopic(): ?SubTopic
-    {
-        return $this->idSubTopic;
-    }
-
-    public function setIdSubTopic(?SubTopic $idSubTopic): self
-    {
-        $this->idSubTopic = $idSubTopic;
-
-        return $this;
-    }
 
     public function getIdUser(): ?User
     {
@@ -125,6 +117,20 @@ class Message
 
         return $this;
     }
+
+    public function getSubTopic(): ?SubTopic
+    {
+        return $this->subTopic;
+    }
+
+    public function setSubTopic(?SubTopic $subTopic): self
+    {
+        $this->subTopic = $subTopic;
+
+        return $this;
+    }
+
+
 
 
 }

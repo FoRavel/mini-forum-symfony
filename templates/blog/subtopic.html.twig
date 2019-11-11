@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+{% block title %}{% endblock %}
+{% block body %}
+<section>
+    <table>
+        {% for message in subTopic.messages %}
+        <tr class="table__row">
+            <td class="table__col--padding">
+            <p class="table__message-date-author">Posté le {{message.createdAt | date('d/m/Y à H:i') }}  par <span class="table__message-author">{{message.getIdUser.username}}</span></p>
+            <p>{{message.text}}</p>
+            </td>
+        </tr> 
+        {% endfor %}
+
+       
+    </table>
+</section> 
+{% endblock %}
