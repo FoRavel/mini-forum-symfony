@@ -58,10 +58,7 @@ class Message
      */
     private $subTopic;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\SubTopic", inversedBy="messages")
-     * @ORM\JoinColumn(nullable=false)
-     */
+
 
 
     public function getId(): ?int

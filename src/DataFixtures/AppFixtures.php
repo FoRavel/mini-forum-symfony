@@ -36,7 +36,7 @@ class AppFixtures extends Fixture
             $topic->setDescription($faker->paragraph($nbSentences = 3, $variableNbSentences = true));
 
             $manager->persist($topic);
-            for ($j = 0; $j < 10; $j++) {
+            for ($j = 0; $j < 30; $j++) {
 
                 $subTopic = new SubTopic();
                 $subTopic->setTitle($faker->sentence($nbWords = 10, $variableNbWords = true));

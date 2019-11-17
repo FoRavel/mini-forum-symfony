@@ -3,29 +3,33 @@
 {% block title %}Hello BlogController!{% endblock %}
 
 {% block body %}
-<a href="{{path('security_signup')}}">S'inscrire</a>
-<a href="{{path('app_login')}}">Se connecter</a>
-<!-- Sign Up form (generated after AJAX request to controller-->
-<div id="signUpModal" class="modal" tabindex="-1" role="dialog">   
-</div>
-<!-- Sign In form-->
-<div id="signInModal" class="modal" tabindex="-1" role="dialog">
-</div>
-<section>
-    <table class="table">
-        <tr>
-            <th class="table__header table__col--padding" scope="col">Sujets</th>
-            <th class="table__header table__col--padding" scope="col">Discussions</th>
-            <th class="table__header table__col--padding" scope="col">Messages</th>
+
+<section class="container">
+    <div class="row justify-content-end">
+        <div class="col-md-auto">
+            <a class="btn btn-primary rounded-0" href="{{path('security_signup')}}">S'inscrire</a>
+            <a class="btn btn-light rounded-0" href="{{path('app_login')}}">Se connecter</a>
+        </div>
+    </div>
+    <table class="table table-striped">
+        <thead class="thead-light">
+            <tr>
+                <th class="" scope="col">Sujets</th>
+                <th class="" scope="col">Discussions</th>
+                <th class="" scope="col">Messages</th>
+            </tr>
+        </thead>
+
+        {% for topic in topics %}
+        <tr class="">
+            <td class=""><a id="mainTopicLink" class="topic-title"
+                    href="{{path('blog_topic', {'id': topic.id})}}">{{topic.title}}</a>
+                <p class="">{{topic.description}}</p>
+            </td>
+            <td class="">{{topic.subtopics | length}}</td>
+            <td class="">{{topic.messages | length}}</td>
         </tr>
-        
-          {% for topic in topics %}
-          <tr class="table__row">
-              <td class="table__col--padding"><a id="mainTopicLink" class="table__topic-title" href="{{path('blog_topic', {'id': topic.id})}}">{{topic.title}}</a><p class="table__main-topic-description">{{topic.description}}</p></td>
-              <td class="table__col--padding">{{topic.subtopics | length}}</td>
-              <td class="table__col--padding">{{topic.messages | length}}</td>
-          </tr>
-          {% endfor %}
+        {% endfor %}
 
 
     </table>

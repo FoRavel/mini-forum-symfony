@@ -116,13 +116,13 @@ section {
   background: #fafafa;
 }
 
-.table__topic-title {
+.topic-title {
   color: black;
   font-weight: bold;
   text-decoration: none;
 }
 
-.table__topic-title:hover {
+.topic-title:hover {
   color: #4588c5;
 }
 

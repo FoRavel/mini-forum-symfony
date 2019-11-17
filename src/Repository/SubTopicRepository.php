@@ -49,26 +49,15 @@ class SubTopicRepository extends ServiceEntityRepository
     }
     */
 
-    public function findAllByTopic(Topic $t): ?SubTopic
+    public function findPaginate($offset, $limit): ?SubTopic
     {
-        $db = $this->createQueryBuilder('s')
-            ->andWhere('s.idTopic = :val')
-            ->setParameter('val', $t->getId());
-
-        $array = $db->getQuery()->getArrayResult();
-
-        return $array;
+        return $this->createQueryBuilder('s')
+            ->add('select', 's')
+            ->add('from', 'SubTopic s')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+        ;
     }
     
-    public function countByTopic(Topic $t): ?SubTopic
-    {
-        $db = $this->createQueryBuilder('s')
-            ->andWhere('s.idTopic = :val')
-            ->setParameter('val', $t->getId())
-            ->select('count(s.id');
 
-        $query = $db->getQuery();
-        
-        return $query->getOneOrNullResult();
-    }
 }

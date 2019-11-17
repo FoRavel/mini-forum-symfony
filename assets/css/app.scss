@@ -1,4 +1,30 @@
 @import "~bootstrap/scss/bootstrap";
 body {
-    
+    font-family: "Roboto", sans-serif;
+}
+
+.no-underline{
+    text-decoration: none;
+}
+
+.on-hover:hover{
+    color:#4588c5;
+}
+
+.topic-title{
+    @extend .font-weight-bold;
+    @extend .text-decoration-none;
+    color: black;
+    &:hover{
+        color: #4588c5;
+    }
+}
+.thead-blue{
+    @extend .thead-light;
+    background-color:#004874;
+}
+
+.table__topic-author {
+    font-size: 0.8em;
+    color: #8d9aa6;
 }

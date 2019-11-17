@@ -2,4 +2,13 @@
 {% block title %}{% endblock %}
 {% block body %}
 <h1>Créer nouvelle discussion</h1>
+<form method="post">
+    {{form_row(formSubTopic.title)}}
+    {{form_row(formMessage.text)}}
+    {{form_row(formSubTopic._token)}}
+    {{form_row(formMessage._token)}}
+    <input type="submit" value="Créer">
+</form>
+
+
 {% endblock %}
