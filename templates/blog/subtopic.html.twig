@@ -1,10 +1,10 @@
 {% extends "base.html.twig" %}
 {% block title %}{% endblock %}
 {% block body %}
-<section class="container">
+<section>
     <a id="createNewTopicButton" class="btn btn-primary rounded-0" href="{{path('blog_reply', {'id':subTopic.id})}}">Répondre</a>
     <table class="table table-striped">
-        {% for message in subTopic.messages %}
+        {% for message in subTopic.messages | slice(pagination.offset, pagination.limit) %}
         <tr class="">
             <td class="">
             <p class="message__date-author">Posté le {{message.createdAt | date('d/m/Y à H:i') }}  par <span class="table__message-author">{{message.getIdUser.username}}</span></p>

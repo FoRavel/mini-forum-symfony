@@ -2,9 +2,10 @@
 
 {% block body %}
 {{ wo_render_breadcrumbs() }}
+
 {{form_start(form)}}
 {{form_row(form.text)}}
-<input type="submit" value="Répondre">
+<input class="btn btn-primary rounded-0" type="submit" value="Répondre">
 {{form_end(form)}}
 
 {% endblock %}

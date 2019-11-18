@@ -7,6 +7,7 @@ use App\Entity\Message;
 use App\Entity\SubTopic;
 use App\Form\MessageType;
 use App\Form\SubTopicType;
+use App\Service\Pagination;
 use App\Repository\TopicRepository;
 use App\Repository\SubTopicRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,10 +112,20 @@ class BlogController extends AbstractController
      * @Route("/discussion/{id}", name="blog_subtopic")
      */
     public function subTopic(SubTopic $subTopic, TopicRepository $repo, SubTopicRepository $repoSubTopic , Request $request, ObjectManager $manager)
-    {
+    {        
+        $messages = $subTopic->getMessages();
+
+        if(!isset($_GET["page"] )){
+            $currentPage = 1;
+        }else{
+            $currentPage = $_GET["page"];
+        }
+
+        $pagination = Pagination::getPagination(10, $messages, $currentPage);
         
         return $this->render('blog/subtopic.html.twig', [
-            'subTopic' => $subTopic
+            'subTopic' => $subTopic,
+            'pagination' => $pagination
         ]);
     }
     /**
@@ -122,8 +133,18 @@ class BlogController extends AbstractController
      */
     public function topic(Topic $topic, TopicRepository $repo, SubTopicRepository $repoSubTopic , Request $request, ObjectManager $manager)
     {
-
+        
         $subTopics = $topic->getSubtopics();
+
+        if(!isset($_GET["page"] )){
+            $currentPage = 1;
+        }else{
+            $currentPage = $_GET["page"];
+        }
+
+        $pagination = Pagination::getPagination(10, $subTopics, $currentPage);
+
+        /*
         if(!isset($_GET["page"] )){
             $currentPage = 1;
         }else{
@@ -139,12 +160,12 @@ class BlogController extends AbstractController
             'offset' => $offset
         );
         var_dump($pagination);
+        */
 
         return $this->render('blog/topic.html.twig', [
             'topic' => $topic,  
             'pagination' =>  $pagination,
-            'limit' => $limit,
-            'offset' => $offset
+
             ]);
         
         
