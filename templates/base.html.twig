@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
-        {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}Welcome!
         {% endblock %}
-    </head>
-    <body>
+    </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+    {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+
+<body>
+    <div class="jumbotron">
         <div class="container">
-        {% block body %}{% endblock %}
+        <h1 class="display-4"><a href="{{path('home')}}">Un forum</a></h1>
+        <p class="lead">Symfony 4 / Boostrap 4</p>
+            <hr class="my-4">
         </div>
-        {% block javascripts %}
-        {{ encore_entry_script_tags('app') }}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
-        {% endblock %}
-    </body>
+    </div>
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+    {% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"
+        integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i"
+        crossorigin="anonymous"></script>
+    {% endblock %}
+</body>
+
 </html>
