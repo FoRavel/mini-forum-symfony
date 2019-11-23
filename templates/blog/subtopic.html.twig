@@ -2,7 +2,7 @@
 {% block title %}{% endblock %}
 {% block body %}
 <section>
-    <a id="createNewTopicButton" class="btn btn-primary rounded-0 my-2"
+    <a id="createNewTopicButton" class="btn btn-primary rounded-0 my-2 text-white"
         href="{{path('blog_reply', {'id':subTopic.id})}}">Répondre</a>
     <table class="table table-striped">
         {% for message in subTopic.messages | slice(pagination.offset, pagination.limit) %}

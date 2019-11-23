@@ -1,13 +1,14 @@
-@import "~bootstrap/scss/bootstrap";
+
+
 body {
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif !important;
 }
 
 .no-underline{
     text-decoration: none;
 }
 
-.on-hover:hover{
+.on-hover   :hover{
     color:#4588c5;
 }
 
@@ -19,12 +20,18 @@ body {
         color: #4588c5;
     }
 }
-.thead-blue{
-    @extend .thead-light;
+.thead-blue{ 
     background-color:#004874;
+    border-color:#004874;
 }
 
 .table__topic-author {
     font-size: 0.8em;
     color: #8d9aa6;
 }
+
+$theme-colors: (
+  "primary" : #57bbb3 
+);
+
+@import "~bootstrap/scss/bootstrap";

@@ -5,14 +5,14 @@
 {% block body %}
 {% if is_granted('IS_AUTHENTIFICATED_FULLY') %}{% endif %}
 <div class="container">
-    <a id="createNewTopicButton" class="btn btn-primary rounded-0 my-2"
+    <a id="createNewTopicButton" class="btn btn-primary rounded-0 my-2 text-white"
         href="{{path('blog_subtopic_new', {'id':topic.id})}}">Commencer une nouvelle
         discussion</a>
     <table class="table table-striped">
-        <thead class="thead-light">
+        <thead class="thead-blue">
             <tr>
-                <th class="">Discussions</th>
-                <th class="">Messages</th>
+                <th class="text-white">Discussions</th>
+                <th class="text-white">Messages</th>
             </tr>
         </thead>
         {% for subTopic in topic.subtopics | slice(pagination.offset, pagination.limit) %}
