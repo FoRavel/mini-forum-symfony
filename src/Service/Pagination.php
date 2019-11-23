@@ -10,7 +10,8 @@ class Pagination{
         $pagination = array(
             'pages' => $pages,
             'limit' => $limit,
-            'offset' => $offset
+            'offset' => $offset,
+            'page' => $page
         );
         return $pagination;
     }

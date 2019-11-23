@@ -4,50 +4,71 @@
 
 {% block body %}
 
-{% if is_granted('IS_AUTHENTIFICATED_FULLY') %}{% endif %}
-<div class="container">
-    {{ wo_render_breadcrumbs() }}
-    <a id="createNewTopicButton" class="btn btn-primary rounded-0 my-2 text-white"
-        href="{{path('blog_subtopic_new', {'id':topic.id})}}">Commencer une nouvelle
-        discussion</a>
-    <table class="table table-striped">
-        <thead class="thead-blue">
-            <tr>
-                <th class="text-white">Discussions</th>
-                <th class="text-white">Messages</th>
-            </tr>
-        </thead>
-        {% for subTopic in topic.subtopics | slice(pagination.offset, pagination.limit) %}
-        <tr class="">
-            <td class="">
-                <a class="topic-title" href="{{path('blog_subtopic', {'id':subTopic.id})}}">{{subTopic.title}}</a>
-                <p class="table__topic-author">par {{subTopic.idUser.username}},
-                    {{subTopic.createdAt | date('d/m/Y à H:i')}} </p>
-            </td>
-            <td class="">{{subTopic.messages | length}}</td>
-        </tr>
-        {% endfor %}
+	{% if is_granted('IS_AUTHENTIFICATED_FULLY') %}{% endif %}
+	<div class="container">
+		{{ wo_render_breadcrumbs() }}
+		<a id="createNewTopicButton" class="btn btn-primary rounded-0 my-2 text-white" href="{{path('blog_subtopic_new', {'id':topic.id})}}">Commencer une nouvelle
+												        discussion</a>
+		<table class="table table-striped">
+			<thead class="thead-blue">
+				<tr>
+					<th class="text-white">Discussions</th>
+					<th class="text-white">Messages</th>
+				</tr>
+			</thead>
+			{% for subTopic in topic.subtopics | slice(pagination.offset, pagination.limit) %}
+				<tr class="">
+					<td class="">
+						<a class="topic-title" href="{{path('blog_subtopic', {'id':subTopic.id})}}">{{subTopic.title}}</a>
+						<p class="table__topic-author">par
+							{{subTopic.idUser.username}},
+							{{subTopic.createdAt | date('d/m/Y à H:i')}}
+						</p>
+					</td>
+					<td class="">{{subTopic.messages | length}}</td>
+				</tr>
+			{% endfor %}
 
-    </table>
-    <!-- pagination -->
-    <nav aria-label="...">
-        <ul class="pagination">
-            <li class="page-item disabled">
-                <a class="page-link" href="" tabindex="-1">Previous</a>
-            </li>
-            {% for i in 0..pagination.pages %}
-            {% if i != 0 %}
-            <li class="page-item">
-                <a class="page-link" href="{{path('blog_topic', {'id':topic.id,'page':i})}}">{{ i }}</a>
-            </li>
-            {% endif %}
-            
-            {% endfor %}
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
+		</table>
+		<!-- pagination -->
+		<nav aria-label="...">
+			<ul class="pagination">
+				{% if (pagination.page - 1) < 1 %}
+					<li class="page-item disabled">
+						<a class="page-link" href="{{path('blog_topic', {'id':topic.id,'page': pagination.page - 1})}}">Précédent</a>
+					</li>
+				{% else %}
+					<li class="page-item">
+						<a class="page-link" href="{{path('blog_topic', {'id':topic.id,'page': pagination.page - 1})}}">Précédent</a>
+					</li>
+				{% endif %}
+				{% for i in 0..pagination.pages %}
+					{% if i != 0 %}
+						{% if pagination.page == i %}
+							<li class="page-item active">
+								<a class="page-link" href="{{path('blog_topic', {'id':topic.id,'page':i})}}">{{ i }}</a>
+							</li>
+						{% else %}
+							<li class="page-item">
+								<a class="page-link" href="{{path('blog_topic', {'id':topic.id,'page':i})}}">{{ i }}</a>
+							</li>
+						{% endif %}
 
-</div>
+					{% endif %}
+
+				{% endfor %}
+				{% if (pagination.page + 1) > pagination.pages %}
+					<li class="page-item disabled">
+						<a class="page-link" href="{{path('blog_topic', {'id':topic.id,'page': pagination.page + 1})}}">Suivant</a>
+					</li>
+				{% else %}
+					<li class="page-item">
+						<a class="page-link" href="{{path('blog_topic', {'id':topic.id,'page': pagination.page + 1})}}">Suivant</a>
+					</li>
+				{% endif %}
+
+			</ul>
+		</nav>
+
+	</div>
 {% endblock %}

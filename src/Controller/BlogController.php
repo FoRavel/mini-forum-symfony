@@ -125,7 +125,10 @@ class BlogController extends AbstractController
         if(!isset($_GET["page"] )){
             $currentPage = 1;
         }else{
-            $currentPage = $_GET["page"];
+            if(is_numeric($_GET["page"]))
+                {$currentPage = $_GET["page"];}
+            else
+                {$currentPage = 1;}
         }
 
         $pagination = Pagination::getPagination(10, $messages, $currentPage);
@@ -149,7 +152,10 @@ class BlogController extends AbstractController
         if(!isset($_GET["page"] )){
             $currentPage = 1;
         }else{
-            $currentPage = $_GET["page"];
+            if(is_numeric($_GET["page"]))
+                {$currentPage = $_GET["page"];}
+            else
+                {$currentPage = 1;}
         }
 
         $pagination = Pagination::getPagination(10, $subTopics, $currentPage);
