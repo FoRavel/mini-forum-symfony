@@ -24,7 +24,7 @@ class BlogController extends AbstractController
      */
     public function reply(SubTopic $subTopic, Request $request, ObjectManager $manager, Breadcrumbs $breadcrumbs)
     {
-        $breadcrumbs->addItem("Catégories", $this->get("router")->generate("home_bis"));
+        $breadcrumbs->addItem("Accueil", $this->get("router")->generate("home_bis"));
         $breadcrumbs->addItem("Discussions", $this->get("router")->generate("blog_topic", ['id'=>$subTopic->getTopic()->getId()]));
         $breadcrumbs->addItem("Messages", $this->get("router")->generate("blog_subtopic", ['id'=>$subTopic->getId()]));
         $breadcrumbs->addItem("Répondre");
@@ -111,8 +111,15 @@ class BlogController extends AbstractController
     /**
      * @Route("/discussion/{id}", name="blog_subtopic")
      */
-    public function subTopic(SubTopic $subTopic, TopicRepository $repo, SubTopicRepository $repoSubTopic , Request $request, ObjectManager $manager)
+    public function subTopic(SubTopic $subTopic, TopicRepository $repo, SubTopicRepository $repoSubTopic , Request $request, ObjectManager $manager, Breadcrumbs $breadcrumbs)
     {        
+        $title = $subTopic->getTopic()->getTitle();
+        $titleST = $subTopic->getTitle();
+        $breadcrumbs->addItem("Accueil", $this->get("router")->generate("home_bis"));
+        $breadcrumbs->addItem($title, $this->get("router")->generate("blog_topic", ['id'=>$subTopic->getTopic()->getId()]));
+        $breadcrumbs->addItem($titleST);
+
+
         $messages = $subTopic->getMessages();
 
         if(!isset($_GET["page"] )){
@@ -131,8 +138,11 @@ class BlogController extends AbstractController
     /**
      * @Route("/categories/{id}", name="blog_topic", requirements={"id"="^[0-9]+$"})
      */
-    public function topic(Topic $topic, TopicRepository $repo, SubTopicRepository $repoSubTopic , Request $request, ObjectManager $manager)
+    public function topic(Topic $topic, TopicRepository $repo, SubTopicRepository $repoSubTopic , Request $request, ObjectManager $manager, Breadcrumbs $breadcrumbs)
     {
+        $title = $topic->getTitle();
+        $breadcrumbs->addItem("Accueil", $this->get("router")->generate("home_bis"));
+        $breadcrumbs->addItem($title);
         
         $subTopics = $topic->getSubtopics();
 

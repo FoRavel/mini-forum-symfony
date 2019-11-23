@@ -3,8 +3,10 @@
 {% block title %}{% endblock %}
 
 {% block body %}
+
 {% if is_granted('IS_AUTHENTIFICATED_FULLY') %}{% endif %}
 <div class="container">
+    {{ wo_render_breadcrumbs() }}
     <a id="createNewTopicButton" class="btn btn-primary rounded-0 my-2 text-white"
         href="{{path('blog_subtopic_new', {'id':topic.id})}}">Commencer une nouvelle
         discussion</a>
