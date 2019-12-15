@@ -56,10 +56,11 @@ class User implements UserInterface
      */
     private $idUserType;
 
-    /**
+    /*
      * @ORM\Column(type="string", length=255, nullable=true)
+     * private $picture;
      */
-    //private $picture;
+    
 
     public function getId(): ?int
     {

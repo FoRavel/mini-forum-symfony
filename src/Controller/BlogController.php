@@ -21,22 +21,26 @@ class BlogController extends AbstractController
 {
     /**
      * @Route("/discussion/{id}/repondre", name="blog_reply")
+     * @Route("/discussion/{id}/edit", name="blog_edit")
      */
-    public function reply(SubTopic $subTopic, Request $request, ObjectManager $manager, Breadcrumbs $breadcrumbs)
+    public function reply(SubTopic $subTopic = null, Message $message = null, Request $request, ObjectManager $manager, Breadcrumbs $breadcrumbs)
     {
         $breadcrumbs->addItem("Accueil", $this->get("router")->generate("home_bis"));
         $breadcrumbs->addItem("Discussions", $this->get("router")->generate("blog_topic", ['id'=>$subTopic->getTopic()->getId()]));
         $breadcrumbs->addItem("Messages", $this->get("router")->generate("blog_subtopic", ['id'=>$subTopic->getId()]));
         $breadcrumbs->addItem("Répondre");
         
-       
+        if(!$message){
+            $message = new Message();
+        }
 
-        $message = new Message();
 
-        $form = $this->createForm(MessageType::class, $message );
+
+        $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            
             $user = $this->getUser();
 
             $message->setTopic($subTopic->getTopic());

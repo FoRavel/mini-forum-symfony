@@ -9,6 +9,11 @@
         {% for message in subTopic.messages | slice(pagination.offset, pagination.limit) %}
         <tr class="">
             <td class="">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {% if app.user.id == message.getIdUser.id %}
+                    <a href="{{path('blog_edit', {'id': message.id})}}">Éditer</a>
+                    {% endif %}
+                {% endif %}
                 <p class="message__date-author">Posté le {{message.createdAt | date('d/m/Y à H:i') }} par <span
                         class="table__message-author">{{message.getIdUser.username}}</span></p>
                 <p>{{message.text}}</p>
